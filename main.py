@@ -1,5 +1,6 @@
 import os
 import time
+import sys
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' # suppress tensorflow nvidia gpu warnings
 import tensorflow as tf
@@ -14,7 +15,9 @@ mnist = tf.keras.datasets.mnist
 
 
 def main():
-    model = get_trained_model()
+    should_retrain = sys.argv[1] if len(sys.argv) > 1 else False
+
+    model = get_trained_model(should_retrain)
 
     for i in range(100):
         sample = x_train[i : i+1]

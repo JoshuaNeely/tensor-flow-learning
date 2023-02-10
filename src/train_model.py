@@ -8,16 +8,24 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 
 
-def get_trained_model():
+def get_trained_model(retrain = False):
     model_file_path = '/home/jneely/git/tensor-flow/trained-model'
 
-    try:
-        model = tf.keras.models.load_model(model_file_path)
-
-    except OSError:
-        x_train, y_train = _gather_mnist_training_data()
-        model = _train_model(x_train, y_train)
+    if (retrain):
+        print("retraining model")
+        model = _train_model()
         model.save(model_file_path)
+
+    else:
+        try:
+            print("loading trained model from disk")
+            model = tf.keras.models.load_model(model_file_path)
+
+        except OSError:
+            print(f'no trained model found at {model_file_path}')
+            print('retraining...')
+            model = _train_model()
+            model.save(model_file_path)
 
     return model
 
@@ -47,7 +55,8 @@ def _gather_mnist_training_data():
     return x_train, y_train
 
 
-def _train_model(training_set_inputs, training_set_truth):
+def _train_model():
+    training_set_inputs, training_set_truth = _gather_mnist_training_data()
 
     # the final layer -Dense(10)- seems to be saying, I want 10 outputs (numbers 0-9)
     model = tf.keras.models.Sequential([
