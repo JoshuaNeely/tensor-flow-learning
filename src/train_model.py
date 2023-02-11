@@ -31,9 +31,7 @@ def get_trained_model(retrain = False):
 
 
 def get_predicted_classification(model, sample):
-    #first_input = x_train[:1]
-    first_input = sample[:1]
-    raw_prediction = model(first_input).numpy()
+    raw_prediction = model(sample).numpy()
     normalized_prediction = tf.nn.softmax(raw_prediction).numpy()
     classification_prediction = tf.math.argmax(normalized_prediction[0]).numpy()
     return classification_prediction

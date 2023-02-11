@@ -15,7 +15,7 @@ mnist = tf.keras.datasets.mnist
 
 
 def main():
-    should_retrain = sys.argv[1] if len(sys.argv) > 1 else False
+    should_retrain = True if (len(sys.argv) > 1) else False
 
     model = get_trained_model(should_retrain)
 
