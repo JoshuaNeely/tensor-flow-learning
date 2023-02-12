@@ -6,8 +6,8 @@ import time
 
 import tensorflow as tf
 
-from src.train_model import get_trained_model, get_predicted_classification
-from src.visualize_handwriting import visualize_handwriting_sample
+from src.digit_classification.train_model import get_trained_model, get_predicted_classification
+from src.digit_classification.visualize_handwriting import visualize_handwriting_sample
 
 def demo():
     # the famous handwriting samples

@@ -1,3 +1,6 @@
 Pillow # for visualizing the mnist data set
 climage
 PyQt5
+matplotlib
+pandas
+scikit-learn

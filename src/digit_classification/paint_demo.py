@@ -7,9 +7,9 @@ import numpy as np
 
 import tensorflow as tf
 
-from src import train_model
-from src.visualize_handwriting import visualize_handwriting_sample, load_image_from_file
-from src.paint import launch_paint_loop
+from src.digit_classification import train_model
+from src.digit_classification.visualize_handwriting import visualize_handwriting_sample, load_image_from_file
+from src.digit_classification.paint import launch_paint_loop
 
 
 def demo():
