@@ -3,26 +3,31 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import sys
+import signal
+
+signal.signal(signal.SIGINT, signal.SIG_DFL)
+
+app = None
 
 # creating class for window
 class Window(QMainWindow):
-  def __init__(self):
+  def __init__(self, on_save_callback):
     super().__init__()
+
+    self.on_save_callback = on_save_callback
 
     title = "Paint"
 
     self.scale = 10
     self.mode = 1
 
-    top = 400
-    left = 400
-    width = 800
-    height = 600
+    self.output_size = 28
+    size = self.output_size * self.scale
 
     self.setWindowTitle(title)
-    self.setGeometry(top, left, width, height)
+    self.setGeometry(size, size, size, size)
     self.image = QImage(self.size(), QImage.Format_RGB32)
-    self.image.fill(Qt.white)
+    self.image.fill(Qt.black)
 
     mainMenu = self.menuBar()
     fileMenu = mainMenu.addMenu("File")
@@ -40,7 +45,7 @@ class Window(QMainWindow):
     painter = QPainter(self.image)
     rect = QRect(scaled_x, scaled_y, self.scale, self.scale)
 
-    color = QBrush(Qt.black) if self.mode == 1 else QBrush(Qt.white)
+    color = QBrush(Qt.white) if self.mode == 1 else QBrush(Qt.black)
 
     painter.fillRect(rect, color)
     painter.end()
@@ -62,13 +67,18 @@ class Window(QMainWindow):
 
   def save(self):
     self.image.save('/tmp/paint.png', "PNG")
-    print('saved')
+    scaled_image = self.image.scaled(self.output_size, self.output_size)
+    scaled_image.save('/tmp/paint2.png', "PNG")
+    self.on_save_callback('/tmp/paint2.png')
 
-# main method
-if __name__ == "__main__":
+def launch_paint_loop(on_save_callback):
   app = QApplication(sys.argv)
-  window = Window()
+  window = Window(on_save_callback)
   window.show()
-
-  # looping for window
   sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+  def noop():
+    pass
+  launch_paint_loop(noop)

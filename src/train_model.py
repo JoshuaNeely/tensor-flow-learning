@@ -36,6 +36,12 @@ def get_predicted_classification(model, sample):
     classification_prediction = tf.math.argmax(normalized_prediction[0]).numpy()
     return classification_prediction
 
+def get_all_classifications(model, sample):
+    raw_prediction = model(sample).numpy()
+    normalized_prediction = tf.nn.softmax(raw_prediction).numpy()
+    #classification_prediction = tf.math.argmax(normalized_prediction[0]).numpy()
+    return normalized_prediction
+
 
 def _gather_mnist_training_data():
     # the famous handwriting samples
