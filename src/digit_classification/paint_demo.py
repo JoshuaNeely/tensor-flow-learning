@@ -13,7 +13,7 @@ from src.digit_classification.paint import launch_paint_loop
 
 
 def demo():
-    model = train_model.get_trained_model(False)
+    model = train_model.get_trained_model(True)
 
     def save_callback(filepath):
         img = load_image_from_file(filepath)
@@ -23,11 +23,11 @@ def demo():
 
         sample = a
         predicted_value = train_model.get_predicted_classification(model, sample)
-        all_predictions = train_model.get_all_classifications(model, sample)
+        #all_predictions = train_model.get_all_classifications(model, sample)
 
-        #visualize_handwriting_sample(sample[0])
+        visualize_handwriting_sample(sample[0])
 
         print(f'predicted value:  {predicted_value}')
-        print(all_predictions)
+        # print(all_predictions)
 
     launch_paint_loop(save_callback)

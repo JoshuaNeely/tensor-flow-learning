@@ -1,0 +1,18 @@
+#+title: Goals
+
+* DONE Save and Load trained model from disk
+CLOSED: [2023-02-12 Sun]
+
+* TODO validate inputs are true to training set
+might be 255 instead of 0-1...?
+
+* TODO Live train model with user input to correct bad classifications
+at this moment it's really struggling with 6s and 0s. Overtrained to 5s.
+
+* TODO compose (trained?) model together as input (layer?) to another model
+
+* TODO generate inputs that match state of model
+"reverse" the flow of data
+find all inputs that match a certain classification?
+
+"auto encoders"

@@ -4,3 +4,6 @@ PyQt5
 matplotlib
 pandas
 scikit-learn
+
+imageio
+IPython
